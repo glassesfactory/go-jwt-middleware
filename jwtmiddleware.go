@@ -4,10 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/glassesfactory/jwt-go"
 )
 
 // A function called whenever an error is encountered
@@ -200,7 +201,7 @@ func (m *JWTMiddleware) CheckJWT(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// Now parse the token
-	parsedToken, err := jwt.Parse(token, m.Options.ValidationKeyGetter)
+	parsedToken, err := jwt.Parse(token, m.Options.ValidationKeyGetter, r)
 
 	// Check if there was an error in parsing...
 	if err != nil {
